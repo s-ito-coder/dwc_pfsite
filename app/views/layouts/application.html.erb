@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DwcPfsite</title>
+    <title>おもいで通販サイト（仮）</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,6 +12,55 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <header class="navbar navbar-inverse">
+      <nav class="navbar-left">
+        <%= link_to root_path do %>
+        <%= image_tag 'omoide_logo.png' %>
+        <% end %>
+      </nav>
+
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <input type="serch" name="genre" placeholder="フリーワードを入力"></input>
+          </li>
+          <!-- ログイン中の場合 -->
+          <% if user_signed_in? %>
+          <li>
+            ログインユーザ：<%= current_end_user.last_name%> <%= current_end_user.first_name%>
+          </li>
+          <li>
+            <%= link_to "Top", root_path %>
+          </li>
+          <li>
+            <%= link_to "About", homes_about_path %>
+          </li>
+          <li>
+            <%= link_to "マイページ", user_registration_path %>
+          </li>
+          <li>
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
+          </li>
+          <li>
+            <%= link_to "カート", cart_items_path, class: "glyphicon glyphicon-shopping-cart" %>
+          </li>
+          <!-- ログアウトしている場合 -->
+          <% else %>
+          <li>
+            <%= link_to "About", homes_about_path %>
+          </li>
+          <li>
+            <%= link_to "Sign up", new_user_registration_path %>
+          </li>
+          <li>
+            <%= link_to "Log in", new_user_session_path %>
+          </li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+
     <%= yield %>
   </body>
 </html>
