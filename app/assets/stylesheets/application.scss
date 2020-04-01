@@ -70,11 +70,6 @@
   display: block;
 }
 
-footer {
-  height: 30px;
-  width: 100%;
-}
-
  /* body */
 
  body {
@@ -95,3 +90,12 @@ footer {
  .btn {
    margin: 10px;
  }
+
+ /* footer */
+
+footer {
+  height: 30px;
+  width: 100%;
+  text-align:center;
+  margin-top:15px;
+}

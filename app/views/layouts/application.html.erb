@@ -15,9 +15,9 @@
           <h4><strong>ロゴがここに入る</strong></h4>
           <!-- <%= image_tag 'omoide_logo.png' %> -->
           <% end %>
-          <!-- エラー警告文の表示 -->
         </nav>
 
+        <!-- メニューはできればレスポンシブ対応したい　小さくなるとハンバーガーメニューに変化 -->
         <nav>
           <ul class="nav navbar-nav navbar-right">
             <!-- ログイン中の場合 -->
@@ -26,16 +26,19 @@
               ログインユーザ：<%= current_user.last_name%> <%= current_user.first_name%>
             </li>
             <li>
-              <%= link_to "Top", root_path %>
+              <%= link_to items_exhibition_path do %>
+                <strong>出品する</strong>
+              <% end %>
             </li>
             <li>
-              <%= link_to "About", homes_about_path %>
+              <%= link_to users_path(current_user.id) do %>
+                <strong>マイページ</strong>
+              <% end %>
             </li>
             <li>
-              <%= link_to "マイページ", user_registration_path %>
-            </li>
-            <li>
-              <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <strong>ログアウト</strong>
+              <% end %>
             </li>
             <!-- ログアウトしている場合 -->
             <% else %>
@@ -75,4 +78,9 @@
 
     </div>
   </body>
+
+  <footer>
+    © 2020 Seiya Ito inc.
+  </footer>
+
 </html>

@@ -12,12 +12,12 @@ Rails.application.routes.draw do
   get '/homes/top' => 'homes#top'
   # トップページ用
   root to: 'homes#top'
+  # 出品ページ用
+  get '/items/exhibition' => 'items#exhibition'
   # 商品用ルーティング
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index, :show, :create, :edit, :update, :destroy]
   # 注文用ルーティング
   resources :orders, only: [:new, :create, :index, :show]
   # 購入確認ページ用
   get '/orders/confirm' => 'orders#confirm'
-  # 購入完了ページ用
-  get '/orders/thanks' => 'orders#thanks'
 end
