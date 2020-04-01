@@ -10,89 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_29_060036) do
+ActiveRecord::Schema.define(version: 2020_03_31_104954) do
 
   create_table "addresses", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "postal_code", null: false
+    t.string "ship_to", null: false
+    t.string "consignee", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "end_user_id"
-    t.string "postal_code"
-    t.string "ship_to"
-    t.string "consignee"
-  end
-
-  create_table "admin_users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "email"
-    t.string "encrypted_password"
-  end
-
-  create_table "end_users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "first_name"
-    t.string "first_name_kana"
-    t.string "last_name"
-    t.string "last_name_kana"
-    t.string "postal_code"
-    t.string "address"
-    t.string "phone_number"
-    t.string "email"
-    t.string "encrypted_password"
-    t.boolean "is_deleted"
   end
 
   create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "end_user_id"
-    t.integer "item_id"
+    t.index ["item_id"], name: "index_favorites_on_item_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "genres", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "is_displayed", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
-    t.boolean "is_displayed"
   end
 
   create_table "item_comments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.integer "item_id"
-    t.boolean "is_displayed"
-  end
-
-  create_table "items", force: :cascade do |t|
+    t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "genre_id"
-    t.string "name"
-    t.text "introduction"
-    t.integer "price"
-    t.string "image_id"
-    t.boolean "transaction_status"
+    t.index ["item_id"], name: "index_item_comments_on_item_id"
+    t.index ["user_id"], name: "index_item_comments_on_user_id"
   end
 
   create_table "order_details", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "item_id", null: false
+    t.integer "purchased_price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "order_id"
-    t.integer "item_id"
-    t.integer "price"
   end
 
   create_table "orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "postal_code", null: false
+    t.string "ship_to", null: false
+    t.string "consignee", null: false
+    t.integer "payment", null: false
+    t.integer "postage", null: false
+    t.integer "total_price", null: false
+    t.integer "order_status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "end_user_id"
-    t.string "postal_code"
-    t.string "ship_to"
-    t.integer "payment"
-    t.integer "postage"
-    t.integer "price"
-    t.integer "order_status"
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,6 +74,14 @@ ActiveRecord::Schema.define(version: 2020_03_29_060036) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "first_name_kana", null: false
+    t.string "last_name_kana", null: false
+    t.string "postal_code"
+    t.string "address"
+    t.string "phone_number"
+    t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

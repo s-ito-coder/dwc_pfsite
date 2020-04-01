@@ -1,0 +1,87 @@
+
+<div class="row">
+	<div class="col-lg-4" style="background-color: orange;">
+		あなたのおもいでを、だれかに引き継ぎませんか。
+		<!-- ここはできればロゴなどを作って装飾したい -->
+
+	  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+	    <%= render "devise/shared/error_messages", resource: resource %>
+
+	    <div class="field">
+	      <%= f.label :last_name, 'ユーザーネーム（姓）' %><br />
+	      <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", placeholder: "（例）佐藤" %>
+	    </div>
+
+	    <div class="field">
+	      <%= f.label :last_name_kana, 'ユーザーネーム（カナ姓）' %><br />
+	      <%= f.text_field :last_name_kana, autocomplete: "last_name_kana", placeholder: "（例）サトウ" %>
+	    </div>
+
+	    <div class="field">
+	      <%= f.label :first_name, 'ユーザーネーム（名）' %><br />
+	      <%= f.text_field :first_name, autocomplete: "first_name", placeholder: "（例）太郎" %>
+	    </div>
+
+	    <div class="field">
+	      <%= f.label :first_name_kana, 'ユーザーネーム（カナ名）' %><br />
+	      <%= f.text_field :first_name_kana, autocomplete: "first_name_kana", placeholder: "（例）タロウ" %>
+	    </div>
+
+	    <div class="field">
+	      <%= f.label :Eメールアドレス %><br />
+	      <%= f.email_field :email, autocomplete: "email", placeholder: "（例）太郎"  %>
+	    </div>
+
+	    <div class="field">
+	      <%= f.label :ログインパスワード %>
+	      <% if @minimum_password_length %>
+	      <em>(<%= @minimum_password_length %> characters minimum)</em>
+	      <% end %><br />
+	      <%= f.password_field :password, autocomplete: "new-password", placeholder: " 6文字以上"  %>
+	    </div>
+
+	    <div class="field">
+	      <%= f.label :ログインパスワード（再入力） %><br />
+	      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+	    </div>
+
+	    <div class="actions">
+	      <%= f.submit "ネット通販をはじめる", class: "btn btn-primary" %>
+	    </div>
+
+	  <% end %>
+
+	  <%= render "devise/shared/links" %>
+	</div>
+	<div class="col-lg-8" style="background-color: blue;">
+	<h1>ここにスライドショーで商品画像を表示します</h1><br />
+	  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+	    <%= render "devise/shared/error_messages", resource: resource %>
+
+	    <div class="field">
+	      <%= f.label :Eメールアドレス %><br />
+	      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+	    </div>
+
+	    <div class="field">
+	      <%= f.label :ログインパスワード %>
+	      <% if @minimum_password_length %>
+	      <em>(<%= @minimum_password_length %> characters minimum)</em>
+	      <% end %><br />
+	      <%= f.password_field :password, autocomplete: "new-password" %>
+	    </div>
+
+	    <div class="field">
+	      <%= f.label :ログインパスワード（再入力） %><br />
+	      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+	    </div>
+
+	    <div class="actions">
+	      <%= f.submit "無料でネット通販をはじめる", class: "btn btn-primary" %>
+	    </div>
+
+	  <% end %>
+
+	  <%= render "devise/shared/links" %>
+	</div>
+</div>

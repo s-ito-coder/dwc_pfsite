@@ -1,0 +1,46 @@
+<div class="container">
+    <h3>マイページ</h3>
+    <h3><strong>登録情報</strong></h3>
+      <%= link_to '編集する', '/users/editing', class: "btn btn-primary" %>
+      <%= link_to 'パスワードを変更する', edit_users_path , class: "btn btn-primary" %>
+
+      <table class="my-profile">
+        <tr>
+          <th>氏名</th>
+          <td>
+            <!--名前の表示-->
+            <%= current_user.last_name %>
+            <%= current_user.first_name %>
+          </td>
+        </tr>
+        <tr>
+          <th>カナ</th>
+          <td>
+            <!--カナ名の表示-->
+            <%= current_user.last_name_kana %>
+            <%= current_user.first_name_kana %>
+          </td>
+        </tr>
+        <tr>
+          <th>郵便番号</th>
+          <td><%= current_user.postal_code %></td>
+        </tr>
+        <tr>
+          <th>住所</th>
+          <td><%= current_user.address %></td>
+        </tr>
+        <tr>
+          <th>電話番号</th>
+          <td><%= current_user.phone_number %></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td><%= current_user.email %></td>
+        </tr>
+      </table><br>
+
+    <strong>配送先を確認<%= link_to '一覧を見る', addresses_path, class: "btn btn-primary" %></strong><br>
+    <strong>注文履歴一覧<%= link_to '一覧を見る', orders_path, class: "btn btn-primary" %></strong>
+  </div>
+</div>
+

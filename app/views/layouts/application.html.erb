@@ -7,60 +7,72 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <header class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <nav class="nav navbar-nav navbar-left">
+          <%= link_to root_path do %>
+          <h4><strong>ロゴがここに入る</strong></h4>
+          <!-- <%= image_tag 'omoide_logo.png' %> -->
+          <% end %>
+          <!-- エラー警告文の表示 -->
+        </nav>
+
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <!-- ログイン中の場合 -->
+            <% if user_signed_in? %>
+            <li>
+              ログインユーザ：<%= current_user.last_name%> <%= current_user.first_name%>
+            </li>
+            <li>
+              <%= link_to "Top", root_path %>
+            </li>
+            <li>
+              <%= link_to "About", homes_about_path %>
+            </li>
+            <li>
+              <%= link_to "マイページ", user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
+            </li>
+            <!-- ログアウトしている場合 -->
+            <% else %>
+            <li>
+              <%= link_to "このサイトについて", homes_about_path %>
+            </li>
+            <li>
+              <%= link_to "新規登録", new_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "ログイン", new_user_session_path %>
+            </li>
+            <% end %>
+            <!-- 検索ボックス（ransakを使用） -->
+            <li>
+              <input type="search" name="genre" placeholder="ジャンルで検索する"></input>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="container flash-message">
+      <% if flash.any? then %>
+        <% flash.each do |key, value| %>
+        <%= value %>
+      <% end %>
+      <% end %><br />
 
-    <header class="navbar navbar-inverse">
-      <nav class="navbar-left">
-        <%= link_to root_path do %>
-        <%= image_tag 'omoide_logo.png' %>
-        <% end %>
-      </nav>
+      <!-- 警告文の表示 -->
+<!--       <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+ -->
+      <%= yield %>
 
-      <nav>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <input type="serch" name="genre" placeholder="フリーワードを入力"></input>
-          </li>
-          <!-- ログイン中の場合 -->
-          <% if user_signed_in? %>
-          <li>
-            ログインユーザ：<%= current_end_user.last_name%> <%= current_end_user.first_name%>
-          </li>
-          <li>
-            <%= link_to "Top", root_path %>
-          </li>
-          <li>
-            <%= link_to "About", homes_about_path %>
-          </li>
-          <li>
-            <%= link_to "マイページ", user_registration_path %>
-          </li>
-          <li>
-            <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %>
-          </li>
-          <li>
-            <%= link_to "カート", cart_items_path, class: "glyphicon glyphicon-shopping-cart" %>
-          </li>
-          <!-- ログアウトしている場合 -->
-          <% else %>
-          <li>
-            <%= link_to "About", homes_about_path %>
-          </li>
-          <li>
-            <%= link_to "Sign up", new_user_registration_path %>
-          </li>
-          <li>
-            <%= link_to "Log in", new_user_session_path %>
-          </li>
-          <% end %>
-        </ul>
-      </nav>
-    </header>
-
-    <%= yield %>
+    </div>
   </body>
 </html>

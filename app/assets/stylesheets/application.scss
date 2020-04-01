@@ -25,9 +25,7 @@
  }
 
  a {
-   text-decoration: none;
-   color: #4682b4;
-   font-weight: bold;
+   color: #294653;
  }
 
  .container {
@@ -36,40 +34,28 @@
    padding-right: 15px;
  }
 
- .flash-message {
-   margin-bottom: 10px;
- }
-
- select {
-   height: 36px;
- }
-
- input {
-   height: 34px;
-   padding: 0 5px;
- }
- label {
-   height: 34px;
-   input {
-     height: auto;
-   }
- }
+.field {
+  padding-top: 15px;
+}
 
  /* header */
 
  header {
-   color: white
  }
 
  .navbar {
-   border: none;
+   border-color: red;
    border-radius: 0;
+   background-color: white;
  }
 
  .navbar-nav {
-   background-color: #F4A261;
    border-color: #090909;
  }
+
+ .navbar-nav>a {
+  color: #294653;
+}
 
  .navbar-left, .navbar-right {
    padding: 30px 20px 0;
@@ -84,14 +70,6 @@
   display: block;
 }
 
- header {
-   color: #FFF;
- }
-
- header:visited {
-   color: #FFF;
- }
-
 footer {
   height: 30px;
   width: 100%;
@@ -100,8 +78,7 @@ footer {
  /* body */
 
  body {
-   background-color: #FCF5C7;
-   color: #333;
+   background-color: white;
    font-family: verdana, arial, helvetica, sans-serif;
    font-size: 13px;
    line-height: 18px;
@@ -118,100 +95,3 @@ footer {
  .btn {
    margin: 10px;
  }
-
- /*---items.html.erb---*/
-
-/*ページネーション自体のデザイン*/
-.pagination>li>a {
-  border: none;     /*枠線をなくす*/
-  color: #696969;   /*文字の色を変える*/
-}
-
-/* 表示しているページ番号のデザイン */
-.pagination>.active>a {
-  background: #93c9ff;     /*背景の色を変える*/
-  border-radius: 15px;     /*角を丸くする*/
-}
-
-/*ホバー時のデザイン*/
-.pagination>li>a:hover {
-  border-radius: 15px;    /*角を丸くする*/
-}
-
- /*---withdraw.html.erb---*/
- .withdraw-text {
-   text-align: center;
- }
-
- strong {
-   margin-right: 10px;
-   font-size: 20px;
- }
-
-.btn-withdraw {
-  display: inline;
-}
-
- /*---top.html.erb---*/
- ul {
-   list-style: none;
- }
-
- li {
-   display: list-item;
-   text-align: -webkit-match-parent;
- }
-
- table {
-   border-collapse: collapse;
- }
-
- .genre_search_btn {
-   text-align: right;
- }
-
-/*---border---*/
- th,td {
-   border: solid 1px #000;
-   padding: 5px;
-   height: 40px;
- }
-
- /*---login.html.erb---*/
-
- .field {
-   margin-bottom: 10px;
- }
-
- /*---thanks.html.erb---*/
-
- .thanks {
-   text-align: center;
- }
-
- /*---about.html.erb---*/
-
- .about {
-   text-align: center;
- }
-
- /*---admin/end_users/show.html.erb---*/
-
- .valid-true {
-   border: solid 2px blue;
- }
-
- .valid-false {
-   border: solid 2px red;
- }
-
-  .my-profile {
-  width:50%;
-  th{
-   background-color:#c0c0c0;
-  }
-  }
-
-  footer {
-    height:100px;
-  }

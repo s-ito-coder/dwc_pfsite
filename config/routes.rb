@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :addresses, only: [:index, :create, :edit, :update, :destroy]
   # アバウトページ用
   get '/homes/about' => 'homes#about'
+  get '/homes/top' => 'homes#top'
   # トップページ用
   root to: 'homes#top'
   # 商品用ルーティング

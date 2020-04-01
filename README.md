@@ -23,6 +23,7 @@
 自身のおもいでの品を手放したい、宝物を次の誰かに引き継ぎたい、人の心を動かす文章を書く場が欲しいとき
 
 ## 設計書
+データベース:omoide
 
 ### 機能一覧
 https://docs.google.com/spreadsheets/d/1QJ7OYhaO6-cPMr125DYG2t_XGvj0SNGXGgzqCz3drRI/edit?usp=sharing
