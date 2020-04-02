@@ -4,36 +4,13 @@
 			※できれば下に人気ジャンルを表示したい　※いいね数が多いものを優先して表示したい
 		</div>
 		<!-- 取得したitemsをeach文で表示していく -->
-		<!-- 以下モック用仮置き -->
+	    <% Item.all.each do | i | %>
 		<div class="col-lg-4" style="background-color: red;">
-			<h1>商品画像</h1><br />
-			<h3>商品名</h3><br />
-			<h3>ジャンル</h3>
+	        <%= attachment_image_tag i, :image, size:'350x350', fallback: 'no_image.jpg', size:'350x350' %>
+      		<%= link_to i.name, item_path( i ) %><br />
+		    <%= i.listed_price %><br />
+		    <%= i.genre_id %><br />
+		    <%= i.selling_status ? '取引中' : '取引終了' %>
 		</div>
-		<div class="col-lg-4" style="background-color: yellow;">
-			<h1>商品画像</h1><br />
-			<h3>商品名</h3><br />
-			<h3>ジャンル</h3>
-		</div>
-		<div class="col-lg-4" style="background-color: blue;">
-			<h1>商品画像</h1><br />
-			<h3>商品名</h3><br />
-			<h3>ジャンル</h3>
-		</div>
-		<div class="col-lg-4" style="background-color: blue;">
-			<h1>商品画像</h1><br />
-			<h3>商品名</h3><br />
-			<h3>ジャンル</h3>
-		</div>
-		<div class="col-lg-4" style="background-color: red;">
-			<h1>商品画像</h1><br />
-			<h3>商品名</h3><br />
-			<h3>ジャンル</h3>
-		</div>
-		<div class="col-lg-4" style="background-color: yellow;">
-			<h1>商品画像</h1><br />
-			<h3>商品名</h3><br />
-			<h3>ジャンル</h3>
-		</div>
-
+		<% end %>
 	</div>

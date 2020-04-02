@@ -1,31 +1,34 @@
 <div class="row">
 Exhibition
 出品ぺーじ
-	<%= form_with(@item, url: items_path) do |f| %>
-		<%= f.text_field :title %>
+	<%= form_for(@item, url:items_path ) do |f| %>
+		<div class="col-lg-5" style="background-color :orange;">
+			<div class="field">
+		      	<%= f.label :name, '商品名' %><br />
+				<%= f.text_field :name %><br />
+			</div>
+			<div class="field">
+		      	<%= f.label :introduction, '商品説明' %><br />
+				<%= f.text_area :introduction %><br />
+			</div>
+			<div class="field">
+				<!-- リスト形式でジャンルを選択 -->
+		      	<%= f.label :genre_id, 'ジャンル' %><br />
+			    <%= f.select :genre_id, Genre.all.map{|genre|[genre.name, genre.id]}.to_h , prompt:'--選択してください--' %><br />
+			</div>
+			<div class="field">
+		      	<%= f.label :listed_price, '商品価格' %><br />
+				<%= f.number_field :listed_price, min:0 %><br />
+			</div>
+
+		</div>
+		<div class="col-lg-7" style="background-color :silver;">
+	        <%= attachment_image_tag @item, :image, size:'350x350', format: 'jpeg', fallback: 'no_image.jpg', size:'350x350' %>
+		    <%= f.attachment_field :image, placeholder: "商品画像登録" %>
+		</div>
+			<div class="field">
+		      	<%= f.submit "商品を出品する", class: "btn btn-primary" %><br />
+			</div>
 	<% end %>
-
-	<form action="/posts" method="post" data-remote="true">
-  		<input type="text" name="title">
-	</form>
-
-
-<%= form_for(book) do |f| %>
-  <h2>New book</h2>
-      <div class="field row">
-        <label for="book_title">Title</label>
-        <%= f.text_field :title, class: "col-xs-12" %>
-      </div>
-
-      <div class="field row">
-        <label for="book_opinion">Opinion</label>
-        <%= f.text_area :body, class: "col-xs-12" %>
-      </div>
-
-      <div class="actions row">
-        <%= f.submit 'Create Book', class: "btn btn-primary col-xs-12" %>
-      </div>
-<% end %>
-</form>
 
 </div>

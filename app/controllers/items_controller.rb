@@ -1,30 +1,34 @@
 class ItemsController < ApplicationController
 	def index
+		@items = Item.all
 	end
 
 	def show
+		@item = Item.find(params[:id])
+		@item_comment = ItemComment.new
+	    @item_comments = @item.item_comments
 	end
 
 	def exhibition
-		@item = Item.new(item_params)
-		@item.id = current_user.id
+		@item = Item.new
 	end
 
 	def create
-	    # カートに入れるアイテムの情報取得
-	    cart_item = CartItem.new( cart_item_params )
-	    # アイテムを入れたユーザの関連付け
-	    cart_item.end_user_id = current_end_user.id
-	    # カートへアイテム保存
-	    cart_item.save
-	    flash[:notice] = "カート内に商品が追加されました。"
-	    # カート画面へ遷移
-	    redirect_to users_path
+	    @item = Item.new(item_params)
+	    @item.user_id = current_user.id
+	    if @item.save
+		  flash[:notice] = "商品の出品が完了しました。"
+	      redirect_to @item
+	    else
+		  flash[:notice] = "商品の出品に失敗しました。"
+	      @items = Book.all
+	      render 'index'
+	    end
 	end
 
     private
-    def book_params
-        params.require(:book).permit(:title, :body)
+    def item_params
+        params.require(:item).permit(:genre_id, :name, :introduction, :listed_price, :image_id)
     end
 
     def correct_user
