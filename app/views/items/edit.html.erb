@@ -1,0 +1,34 @@
+<div class="row">
+	<%= form_for( @item, url:item_path( @item ) ) do | itm | %>
+		<div class="col-lg-5" style="background-color :orange;">
+			<div class="field">
+		      	<%= itm.label :name, 'この商品の名前は？' %><br />
+				<%= itm.text_field :name, placeholder: "入力してください" %><br />
+			</div>
+			<div class="field">
+		      	<%= itm.label :introduction, 'この商品にまつわるおもいでは？' %><br />
+				<%= itm.text_area :introduction, size: "50x15", placeholder: "入力してください" %><br />
+			</div>
+			<div class="field">
+				<!-- リスト形式でジャンルを選択 -->
+		      	<%= itm.label :genre_id, 'おもいでのジャンルは？' %><br />
+			    <%= itm.select :genre_id, Genre.all.map{|genre|[genre.name, genre.id]}.to_h , prompt:'--選択してください--' %><br />
+			</div>
+			<div class="field">
+		      	<%= itm.label :listed_price, 'この商品の値段は？' %><br />
+				<%= itm.number_field :listed_price, min:0 %><br />
+			</div>
+		</div>
+
+	<div class="col-lg-7" style="background-color :silver;">
+      	<%= itm.label :image, 'この商品の画像は？' %><br />
+	    <%= attachment_image_tag @item, :image, fallback: 'no_image.jpg', size:'350x350' %>
+	    <%= itm.attachment_field :image, placeholder: "商品画像を変更" %>
+	</div>
+</div>
+
+<div class="field">
+   	<%= itm.submit "これで登録する", class: "btn btn-primary" %><br />
+   	<%= link_to '商品を取り下げ', item_path(@item.id), class: 'btn btn-danger', method: :delete %>
+</div>
+	<% end %>

@@ -1,34 +1,32 @@
 <div class="row">
-Exhibition
-出品ぺーじ
-	<%= form_for(@item, url:items_path ) do |f| %>
-		<div class="col-lg-5" style="background-color :orange;">
+	<%= form_for( @item, url:items_path ) do | itm | %>
+		<div class="col-lg-7">
 			<div class="field">
-		      	<%= f.label :name, '商品名' %><br />
-				<%= f.text_field :name %><br />
+			   	<%= itm.label :name, 'この商品の名前は？' %><br />
+				<%= itm.text_field :name, placeholder: "入力してください" %><br />
 			</div>
 			<div class="field">
-		      	<%= f.label :introduction, '商品説明' %><br />
-				<%= f.text_area :introduction %><br />
+			   	<%= itm.label :introduction, 'この商品にまつわるおもいでは？' %><br />
+				<%= itm.text_area :introduction, size: "50x15", placeholder: "入力してください" %><br />
 			</div>
 			<div class="field">
 				<!-- リスト形式でジャンルを選択 -->
-		      	<%= f.label :genre_id, 'ジャンル' %><br />
-			    <%= f.select :genre_id, Genre.all.map{|genre|[genre.name, genre.id]}.to_h , prompt:'--選択してください--' %><br />
+			   	<%= itm.label :genre_id, 'おもいでのジャンルは？' %><br />
+			    <%= itm.select :genre_id, Genre.all.map{|genre|[genre.name, genre.id]}.to_h , prompt:'--選択してください--' %><br />
 			</div>
 			<div class="field">
-		      	<%= f.label :listed_price, '商品価格' %><br />
-				<%= f.number_field :listed_price, min:0 %><br />
+			   	<%= itm.label :listed_price, 'この商品の値段は？' %><br />
+				<%= itm.number_field :listed_price, min:0 %><br />
 			</div>
-
-		</div>
-		<div class="col-lg-7" style="background-color :silver;">
-	        <%= attachment_image_tag @item, :image, size:'350x350', format: 'jpeg', fallback: 'no_image.jpg', size:'350x350' %>
-		    <%= f.attachment_field :image, placeholder: "商品画像登録" %>
-		</div>
 			<div class="field">
-		      	<%= f.submit "商品を出品する", class: "btn btn-primary" %><br />
+			   	<%= itm.submit "商品を出品する", class: "btn btn-primary" %><br />
 			</div>
+		</div>
+		<div class="col-lg-5">
+	      	<%= itm.label :image, 'この商品の画像は？' %><br />
+		    <%= itm.attachment_field :image, placeholder: "商品画像を変更" %>
+		    <%= itm.attachment_field :image2, placeholder: "商品画像を変更" %>
+		    <%= itm.attachment_field :image3, placeholder: "商品画像を変更" %>
+		</div>
 	<% end %>
-
 </div>

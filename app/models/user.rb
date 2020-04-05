@@ -5,5 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates :username, presence: true, length: {maximum: 20, minimum: 2}
   has_many :items, dependent: :destroy
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_items, through: :favorites, source: :item, dependent: :destroy
+
+  # お気に入り登録済かの判定
+  def already_favorited?()
+    self.favorites.exists?(item_id: item.id)
+  end
 end

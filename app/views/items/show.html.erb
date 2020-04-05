@@ -1,2 +1,76 @@
-商品詳細ページ
-a
+<div class="row">
+    <div class="col-xs-12">
+      <%= attachment_image_tag @item, :image, format: 'jpeg', fallback: 'no_image.jpg' %>
+      <%= attachment_image_tag @item, :image2, format: 'jpeg', fallback: 'no_image.jpg' %>
+      <%= attachment_image_tag @item, :image3, format: 'jpeg', fallback: 'no_image.jpg' %>
+    </div>
+    <div class="col-xs-7">
+      <h2><strong><%= @item.name %></strong></h2>
+      <br>
+      <!-- 商品の説明 -->
+      <p><%= @item.introduction %></p><br />
+      	<!-- 桁数が多い場合カンマ区切りにするヘルパーを使用 -->
+		￥ <%= number_separation ( @item.listed_price )%>(税込)
+		<!-- お気に入り機能 -->
+        <% if @item.favorited_by?(current_user) %>
+          <%= link_to item_favorites_path(@item, redirect_id: 0), method: :delete do %>
+            <span class="glyphicon glyphicon-heart"><%= @item.favorites.count%></span>
+          <% end %>
+        <% else %>
+          <%= link_to item_favorites_path(@item, redirect_id: 0), method: :post do %>
+            <span class="glyphicon glyphicon-heart-empty"><%= @item.favorites.count %></span>
+          <% end %>
+        <% end %>
+
+		<!-- ログインせずに購入ボタンを推すとログインを促すウィンドウが表示される -->
+        <%= form_for( @item ) do | itm |%>
+   		    <%= itm.hidden_field :item_id, value:@item.id, readonly:true %>
+	        <%= itm.hidden_field :user_id, value:current_user.id, readonly:true %>
+	        <%= itm.submit '購入する', class: "btn btn-primary" %>
+        <% end %>
+
+        <!-- 自分が出品したアイテムの場合は編集用ボタンを表示 -->
+        <% if user_signed_in? then%>
+	        <% if @item.user == current_user %>
+	            <%= link_to '編集する', edit_item_path( @item ), class: "btn btn-primary" %>
+            <% end %>
+        <% end %>
+    </div>
+</div>
+<div class="row">
+	<h2>コメント：<%= @item_comments.count %></h2>
+    <table class="comment-tb">
+    <!-- コメント一覧表示 -->
+      <% @item_comments.each do |itm_co| %>
+	        <tr>
+	          <td><div class="field">
+	            <%= link_to item_path(itm_co.user), class: "user_#{itm_co.user.id}" do %>
+	              <%= itm_co.user.username %>｜
+	            <% end %>
+           	    </div></td>
+	          <td><div class="field">
+	          	<%= itm_co.comment %>
+	          </div></td>
+	          <!-- 投稿者とログインユーザーが同じ場合削除ボタン表示 -->
+	          <% unless current_user != itm_co.user %>
+	            <td><div class="field">
+	            	｜<%= link_to 'Destroy', item_item_comments_path(itm_co.id), class: 'btn-sm btn-danger', method: :delete %>
+	            </div></td>
+	          <% end %>
+	    </div>
+	        </tr>
+      <% end %>
+    </table>
+
+    <div class="comment-form">
+      <%= form_for [@item, @item_comment] do |f| %>
+        <%= f.text_area :comment, size: "90x5", placeholder: "コメント？" %>
+        <%= f.submit '送信' ,class: "btn btn-primary" %>
+      <% end %>
+    </div>
+</div>
+<div class="row">
+	<%= link_to items_path do %>
+		商品一覧に戻る
+	<% end %>
+</div>

@@ -14,8 +14,12 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   # 出品ページ用
   get '/items/exhibition' => 'items#exhibition'
-  # 商品用ルーティング
-  resources :items, only: [:index, :show, :create, :edit, :update, :destroy]
+  # 商品用ルーティング（コメント、お気に入り）
+  resources :items, only: [:index, :show, :create, :edit, :update, :destroy] do
+    resource :item_comments, only: [:create, :destroy]
+    resource :favorites, only: [:create, :destroy]
+  end
+
   # 注文用ルーティング
   resources :orders, only: [:new, :create, :index, :show]
   # 購入確認ページ用

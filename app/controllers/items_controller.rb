@@ -4,7 +4,9 @@ class ItemsController < ApplicationController
 	end
 
 	def show
+		# 閲覧する商品情報を取得
 		@item = Item.find(params[:id])
+		# コメント機能
 		@item_comment = ItemComment.new
 	    @item_comments = @item.item_comments
 	end
@@ -21,14 +23,25 @@ class ItemsController < ApplicationController
 	      redirect_to @item
 	    else
 		  flash[:notice] = "商品の出品に失敗しました。"
-	      @items = Book.all
+	      @items = Item.all
 	      render 'index'
 	    end
 	end
 
+	def edit
+		@item = Item.find(params[:id])
+	end
+
+	def destroy
+	    @item = Item.find(params[:id])
+	    @item.destroy
+	  	flash[:notice] = "商品を取り下げました。"
+	    redirect_to items_url
+	end
+
     private
     def item_params
-        params.require(:item).permit(:genre_id, :name, :introduction, :listed_price, :image_id)
+        params.require(:item).permit(:genre_id, :name, :introduction, :listed_price, :image, :image2, :image3)
     end
 
     def correct_user
