@@ -11,4 +11,17 @@ module ApplicationHelper
     end
     return result
   end
+
+  # 受取人名義を１行にまとめる
+  def join_consignee( last_name, first_name )
+    # 返す変数の作成
+    str = String.new
+    # 先頭に郵便番号を配置
+    str = last_name
+    # ２番目に住所を配置
+    str += first_name
+    # 結合した配送先情報を返す
+    return str
+  end
+
 end

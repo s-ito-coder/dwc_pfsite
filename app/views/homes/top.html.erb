@@ -1,74 +1,66 @@
 
 <% if user_signed_in? %>
 	<div class="row">
-		<div class="col-lg-12" style="background-color: orange;">
-			<h1>ここに商品画像・出品者・イントロダクションを表示します</h1><br />
-			<h1>ここに商品画像・出品者・イントロダクションを表示します</h1><br />
-			<h1>ここに商品画像・出品者・イントロダクションを表示します</h1><br />
-			<h1>ここに商品画像・出品者・イントロダクションを表示します</h1><br />
-			<h1>ここに商品画像・出品者・イントロダクションを表示します</h1><br />
-			<h1>ここに商品画像・出品者・イントロダクションを表示します</h1><br />
-			※ランダム　※いいね数が多いものを表示したい
+		<div class="col-lg-12 slideshow">
+	    	<div class="theTarget">
+			    <% Item.all.each do | itm | %>
+					<div class="item_parameter">
+						<%= link_to item_path( itm ) do %>
+							<%= attachment_image_tag itm, :image, fallback: 'no_image.jpg', size:'350x350' %>
+						<% end %>
+						<div class="item_data">
+							<%= itm.name %><br />
+		   				    <%= itm.introduction %>
+		   				</div>
+					</div>
+				<% end %>
+			</div>
 		</div>
-	</div>
-	<div class="menu-bar" style="background-color: silver;">
-		<h1>ここにメニューバーを表示します</h1><br />
 	</div>
 <% else %>
 	<div class="row">
-		<div class="col-lg-4" style="background-color: orange;">
+		<div class="col-lg-4">
 			あなたのおもいでを、だれかに引き継ぎませんか。
 			<!-- ここはできればロゴなどを作って装飾したい -->
-			<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-			    <%= render "devise/shared/error_messages", resource: resource %>
-			    <div class="field">
-			      <p>ユーザー名は後ほど設定いただけます</p>
-			      <%= f.label :last_name, 'ユーザーネーム（姓）' %><br />
-			      <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", placeholder: "（例）佐藤" %>
-			    </div>
+			<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+			  <div class="field">
+			    <%= f.label :メールアドレス %><br />
+			    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@mail.com" %>
+			  </div>
 
-			    <div class="field">
-			      <%= f.label :last_name_kana, 'ユーザーネーム（カナ姓）' %><br />
-			      <%= f.text_field :last_name_kana, autocomplete: "last_name_kana", placeholder: "（例）サトウ" %>
-			    </div>
+			  <div class="field">
+			    <%= f.label :パスワード %><br />
+			    <%= f.password_field :password, autocomplete: "current-password", placeholder: "your password" %>
+			  </div>
 
+			  <% if devise_mapping.rememberable? %>
 			    <div class="field">
-			      <%= f.label :first_name, 'ユーザーネーム（名）' %><br />
-			      <%= f.text_field :first_name, autocomplete: "first_name", placeholder: "（例）太郎" %>
+			      <%= f.check_box :remember_me %>
+			      <%= f.label :ログイン情報を記憶する %>
 			    </div>
+			  <% end %>
 
-			    <div class="field">
-			      <%= f.label :first_name_kana, 'ユーザーネーム（カナ名）' %><br />
-			      <%= f.text_field :first_name_kana, autocomplete: "first_name_kana", placeholder: "（例）タロウ" %>
-			    </div>
-
-			    <div class="field">
-			      <%= f.label :Eメールアドレス %><br />
-			      <%= f.email_field :email, autocomplete: "email", placeholder: "（例）太郎"  %>
-			    </div>
-
-			    <div class="field">
-			      <%= f.label :ログインパスワード %>
-			      <% if @minimum_password_length %>
-			      <em>(<%= @minimum_password_length %> characters minimum)</em>
-			      <% end %><br />
-			      <%= f.password_field :password, autocomplete: "new-password", placeholder: " 6文字以上"  %>
-			    </div>
-
-			    <div class="field">
-			      <%= f.label :ログインパスワード（再入力） %><br />
-			      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-			    </div>
-
-			    <div class="actions">
-			      <%= f.submit "ネット通販をはじめる", class: "btn btn-primary" %>
-			    </div>
-		  	<% end %>
-			<%= render "devise/shared/links" %>
+			  <div class="actions">
+			    <%= f.submit "ログイン", class: "btn btn-primary" %>
+			  </div>
+			<% end %>
 		</div>
 
-		<div class="col-lg-8" style="background-color: blue;">
-			<h1>ここにスライドショーで商品画像を表示します</h1><br />
+		<div class="col-lg-8 slideshow">
+			こんな商品が出品されています
+	    	<div class="theTarget">
+			    <% Item.all.each do | itm | %>
+					<div class="item_parameter">
+						<%= link_to item_path( itm ) do %>
+							<%= attachment_image_tag itm, :image, fallback: 'no_image.jpg', size:'350x350' %>
+						<% end %>
+						<div class="item_data">
+							<%= itm.name %><br />
+		   				    <%= itm.introduction %>
+		   				</div>
+					</div>
+				<% end %>
+			</div>
 		</div>
 	</div>
 <% end %>

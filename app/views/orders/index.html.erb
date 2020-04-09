@@ -1,0 +1,61 @@
+<div class="container">
+  <%= link_to '編集する', edit_user_path(current_user.id), class: "btn btn-primary" %>
+
+    <table class="my-profile">
+      <tr>
+        <th>表示ネーム</th>
+        <td>
+          <!--名前の表示-->
+          <%= current_user.username %>
+        </td>
+      </tr>
+      <tr>
+        <th>郵便番号</th>
+        <td><%= current_user.postal_code %></td>
+      </tr>
+      <tr>
+        <th>住所</th>
+        <td><%= current_user.address %></td>
+      </tr>
+      <tr>
+        <th>電話番号</th>
+        <td><%= current_user.phone_number %></td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td><%= current_user.email %></td>
+      </tr>
+    </table><br>
+
+    <strong>配送先を確認<%= link_to '一覧を見る', addresses_path, class: "btn btn-primary" %></strong><br>
+    <strong>注文履歴一覧<%= link_to '一覧を見る', orders_path, class: "btn btn-primary" %></strong>
+
+    <div class="order container">
+        <table class="order__list">
+          <tr>
+            <th>オーダーリスト</th>
+            <td>
+              <!--名前の表示-->
+              <%= current_user.username %>
+            </td>
+          </tr>
+          <tr>
+            <th>郵便番号</th>
+            <td><%= current_user.postal_code %></td>
+          </tr>
+          <tr>
+            <th>住所</th>
+            <td><%= current_user.address %></td>
+          </tr>
+          <tr>
+            <th>電話番号</th>
+            <td><%= current_user.phone_number %></td>
+          </tr>
+          <tr>
+            <th>メールアドレス</th>
+            <td><%= current_user.email %></td>
+          </tr>
+        </table><br>
+    </div>
+</div>
+

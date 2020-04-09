@@ -1,5 +1,13 @@
 class UsersController < ApplicationController
 	def show
+		@user = User.find(params[:id])
+		@orders = @user.orders
+		if @user.items.nil? then
+			@items = CartItem.new
+		else
+			@items = @user.items
+		end
+
 	end
 
 	def edit
@@ -21,7 +29,7 @@ class UsersController < ApplicationController
 	      redirect_to root_path
 	    else
 	      # （退会していない場合）ログインユーザ詳細画面へ遷移
-	    redirect_to users_path
+	    redirect_to user_path
     end
 
 	end

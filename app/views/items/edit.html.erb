@@ -1,6 +1,6 @@
 <div class="row">
 	<%= form_for( @item, url:item_path( @item ) ) do | itm | %>
-		<div class="col-lg-5" style="background-color :orange;">
+		<div class="col-lg-5">
 			<div class="field">
 		      	<%= itm.label :name, 'この商品の名前は？' %><br />
 				<%= itm.text_field :name, placeholder: "入力してください" %><br />
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 
-	<div class="col-lg-7" style="background-color :silver;">
+	<div class="col-lg-7">
       	<%= itm.label :image, 'この商品の画像は？' %><br />
 	    <%= attachment_image_tag @item, :image, fallback: 'no_image.jpg', size:'350x350' %>
 	    <%= itm.attachment_field :image, placeholder: "商品画像を変更" %>

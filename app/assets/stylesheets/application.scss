@@ -28,6 +28,10 @@
    color: #294653;
  }
 
+ a:hover{
+   text-decoration: none;
+ }
+
  .container {
    margin: 0 auto;
    padding-left: 15px;
@@ -41,6 +45,10 @@
  li {
   list-style:  none;
  }
+
+.slideshow {
+  height: 500px;
+}
 
  /* header */
 
@@ -104,6 +112,11 @@
 .item-index-image {
   background-size: cover;
 }
+
+ /* user */
+ .exhibition__items {
+  height: 400px;
+ }
 
  /* footer */
 

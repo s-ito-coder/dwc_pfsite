@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  include ApplicationHelper
 	def index
 		@items = Item.all
 	end
@@ -9,6 +10,10 @@ class ItemsController < ApplicationController
 		# コメント機能
 		@item_comment = ItemComment.new
 	    @item_comments = @item.item_comments
+	    # サインインしている場合オーダーを作成する
+   		if user_signed_in? then
+			@order = Order.new
+		end
 	end
 
 	def exhibition
@@ -31,6 +36,28 @@ class ItemsController < ApplicationController
 	def edit
 		@item = Item.find(params[:id])
 	end
+
+	def buy
+		@item = Item.find(params[:id])
+		user = User.find(current_user.id)
+		# orderテーブルに格納する準備
+		orders = Order.new
+		flash[:notice] = "商品の購入処理が完了しました。"
+		@item.selling_status = false
+		# orderテーブルに購入情報を格納
+		orders.item_id = @item.id
+		orders.item_name = @item.name
+		orders.image_id = @item.image_id
+		orders.user_id = current_user.id
+		orders.postal_code = user.postal_code
+		orders.ship_to = user.address
+		orders.consignee = join_consignee( user.last_name, user.first_name )
+		orders.total_price = @item.listed_price + 800
+		# 情報を保存
+		orders.save
+		@item.save
+    	redirect_to items_url
+    end
 
 	def destroy
 	    @item = Item.find(params[:id])

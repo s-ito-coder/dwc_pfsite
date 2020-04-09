@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>おもいで通販サイト（仮）</title>
+    <title>おもいで通販</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -41,7 +41,7 @@
                 <% end %>
               </li>
               <li>
-                <%= link_to users_path(current_user.id) do %>
+                <%= link_to user_path(current_user.id) do %>
                   <strong>マイページ</strong>
                 <% end %>
               </li>

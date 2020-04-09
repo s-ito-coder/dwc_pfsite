@@ -2,20 +2,24 @@
 Rails.application.routes.draw do
   devise_for :users
   #ユーザー用ルーティング
-  resource :users, only: [:show, :update]
+  resources :users, only: [:show, :update, :edit, :destroy]
   # 退会確認ページ用
   get '/users/withdraw' => 'users#withdraw'
 
   resources :addresses, only: [:index, :create, :edit, :update, :destroy]
-  # アバウトページ用
+
+  # アバウト,トップページ用
   get '/homes/about' => 'homes#about'
   get '/homes/top' => 'homes#top'
-  # トップページ用
   root to: 'homes#top'
+
   # 出品ページ用
   get '/items/exhibition' => 'items#exhibition'
+
   # 商品用ルーティング（コメント、お気に入り）
-  resources :items, only: [:index, :show, :create, :edit, :update, :destroy] do
+  put '/items/buy/:id' => 'items#buy', as: 'item_buy'
+
+  resources :items, only: [:index, :show, :create, :edit, :destroy] do
     resource :item_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end

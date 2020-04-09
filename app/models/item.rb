@@ -7,6 +7,7 @@ class Item < ApplicationRecord
     attachment :image2
     attachment :image3
     has_many :item_comments, dependent: :destroy
+    has_one :order
 
 	def favorited_by?(user)
     	favorites.where(user_id: user.id).exists?
