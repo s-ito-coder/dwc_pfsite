@@ -24,6 +24,11 @@
       </div>
 
       <div class="field">
+        <%= f.label :サイト表示用ネーム %><br />
+        <%= f.text_field :username, autocomplete: "username", placeholder: "（例）ななしのユーザー" %>
+      </div>
+
+      <div class="field">
         <%= f.label :郵便番号 %><em>（ハイフンは除く）</em><br>
         <%= f.text_field :postal_code, autocomplete: "postal_code", placeholder: "your address number" %>
       </div>
