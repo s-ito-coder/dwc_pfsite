@@ -1,13 +1,10 @@
 class UsersController < ApplicationController
+    before_action :authenticate_user!
+
 	def show
 		@user = User.find(params[:id])
 		@orders = @user.orders
-		if @user.items.nil? then
-			@items = CartItem.new
-		else
-			@items = @user.items
-		end
-
+		@items = @user.items
 	end
 
 	def edit

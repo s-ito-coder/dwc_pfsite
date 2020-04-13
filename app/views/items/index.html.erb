@@ -3,7 +3,11 @@
 			<h1>アイテム一覧ページ</h1><br />
 		</div>
 		<!-- 取得したitemsをeach文で表示していく -->
-	    <% Item.all.each do | itm | %>
+        <%= search_form_for @search do |sch| %>
+            <%= sch.search_field :name_cont, placeholder:"キーワードで探す" %>
+            <%= sch.submit "検索" %>
+        <% end %>
+	    <% @items.all.each do | itm | %>
 			<div class="col-lg-4">
 				<div class="item-index-image">
 					<%= link_to item_path( itm ) do %>

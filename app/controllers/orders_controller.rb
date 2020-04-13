@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   include ApplicationHelper
   before_action :authenticate_user!
+
   def index
     # ログインユーザのカートアイテムを全部取得
     @orders = current_user.orders

@@ -34,11 +34,21 @@
         <% if user_signed_in? then %>
           <% unless @item.user_id == current_user.id then %>
             <% if @item.selling_status? then %>
-            	<%= link_to '商品を購入する', item_buy_path( @item.id ), class: "btn btn-primary", method: :put %>
+              <button id="modal-open-btn", class="btn btn-primary">商品を購入する</button>
+              <%= link_to "", item_buy_path( @item.id ), id: 'item-buy-btn', method: :put %>
+              <div id="overlay">
+                <div id="modalWindow">
+                  <div class="modal-message-box">
+                    <p>本当に購入しますか？</p>
+                  </div>
+                  <button id="modal-close-btn">キャンセル</button>
+                  <button id="item-bought-btn">商品を購入する</button>
+                </div>
+              </div>
             <% end %>
           <% end %>
         <% else %>
-         	<%= link_to 'ユーザー登録して購入する', new_user_registration_path, class: 'btn btn-primary'%>
+         	<%= link_to 'ユーザー登録して購入する', new_user_registration_path, 'btn btn-primary'%>
         <% end %>
       </div>
 

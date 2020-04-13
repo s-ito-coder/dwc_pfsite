@@ -1,10 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  # 検索機能
-  @search = Item.ransack(params[:search])
-  @items_result = @search.result(distinct: true)
-
   protected
 
     def configure_permitted_parameters
