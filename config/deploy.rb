@@ -2,7 +2,7 @@
 lock "~> 3.13.0"
 
 set :application, "dwc_pfsite"
-set :repo_url, "git@github.com:s-ito-coder/dwc_pfsite.git"
+set :repo_url, "git@github.com:s-ito-coder/dwc_pfsite.git" # git remote -v で確認できる
 
 set :deploy_to, "/home/ec2-user/dwc_pfsite"
 set :rbenv_ruby, '2.5.7'
