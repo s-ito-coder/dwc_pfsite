@@ -16,82 +16,69 @@
           <%= image_tag 'omoide_logo.png', size:'200x45' %>
           <% end %>
         </nav>
-
-        <!-- メニューはできればレスポンシブ対応したい　小さくなるとハンバーガーメニューに変化 -->
         <nav>
           <ul>
             <!-- ログイン中の場合 -->
             <% if user_signed_in? %>
-                <li>
-                    ログインユーザ：<%= current_user.username%> さん<br>
-                    <% if flash.any? then %>
-                      <% flash.each do |key, value| %>
-                        <%= value %>
-                      <% end %>
-                    <% end %>
-                </li>
               <div class="nav navbar-nav navbar-right normal-menu">
                 <li>
-                    <%= link_to items_exhibition_path do %>
-                      <strong>出品する</strong>
+                  ログインユーザ：<%= current_user.username%> さん<br>
+                  <% if flash.any? then %>
+                    <% flash.each do |key, value| %>
+                      <%= value %>
                     <% end %>
-                  </div>
+                  <% end %>
                 </li>
-                <li>
-                    <%= link_to items_path do %>
-                      <strong>商品を探す</strong>
-                    <% end %>
-                </li>
-                <li>
-                    <%= link_to user_path(current_user.id) do %>
-                      <strong>マイページ</strong>
-                    <% end %>
-                </li>
-                <li>
-                    <%= link_to destroy_user_session_path, method: :delete do %>
-                      <strong>ログアウト</strong>
-                    <% end %>
-                  </div>
-                </li>
+                <li><%= link_to "出品する", items_exhibition_path %></li>
+                <li><%= link_to "商品を探す", items_path %></li>
+                <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+                <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+              </div>
+              <div id="sp-menu">
+                <ul>
+                  <li><%= link_to "出品する", items_exhibition_path %></li>
+                  <li><%= link_to "商品を探す", items_path %></li>
+                  <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+                  <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+                </ul>
+              </div>
+              <div id="hm-icon">
+                <a class="menu-trigger" href="#">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </a>
               </div>
             <!-- ログアウトしている場合 -->
             <% else %>
-              <li>
-                <br>
-                <% if flash.any? then %>
-                  <% flash.each do |key, value| %>
-                    <%= value %>
-                  <% end %>
-                <% end %>
-              </li>
               <div class="nav navbar-nav navbar-right normal-menu">
                 <li>
-                    <%= link_to "このサイトについて", homes_about_path %>
+                  <br>
+                  <% if flash.any? then %>
+                    <% flash.each do |key, value| %>
+                      <%= value %>
+                    <% end %>
+                  <% end %>
                 </li>
-                <li>
-                    <%= link_to "新規登録", new_user_registration_path %>
-                </li>
-                <li>
-                    <%= link_to "ログイン", new_user_session_path %>
-                </li>
-                <!-- レスポンシブ対応　ハンバーガーアイコン -->
+                <li><%= link_to "このサイトについて", homes_about_path %></li>
+                <li><%= link_to "新規登録", new_user_registration_path %></li>
+                <li><%= link_to "ログイン", new_user_session_path %></li>
               </div>
-                <div id="sp-menu">
-                  <ul>
-                    <li><a href="#">MENU1</a></li>
-                    <li><a href="#">MENU2</a></li>
-                    <li><a href="#">MENU3</a></li>
-                    <li><a href="#">MENU4</a></li>
-                    <li><a href="#">MENU5</a></li>
-                  </ul>
-                </div>
-                <div id="hm-icon">
-                  <a class="menu-trigger" href="#">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </a>
-                </div>
+              <!-- レスポンシブ対応　ハンバーガーアイコン -->
+              <div id="sp-menu">
+                <ul>
+                  <li><%= link_to "このサイトについて", homes_about_path %></li>
+                  <li><%= link_to "新規登録", new_user_registration_path %></li>
+                  <li><%= link_to "ログイン", new_user_session_path %></li>
+                </ul>
+              </div>
+              <div id="hm-icon">
+                <a class="menu-trigger" href="#">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </a>
+              </div>
             <% end %>
           </ul>
         </nav>

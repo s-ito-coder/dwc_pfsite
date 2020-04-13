@@ -10,16 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_08_021012) do
-
-  create_table "addresses", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "postal_code", null: false
-    t.string "ship_to", null: false
-    t.string "consignee", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2020_04_07_132527) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
@@ -85,13 +76,13 @@ ActiveRecord::Schema.define(version: 2020_04_08_021012) do
     t.string "last_name", null: false
     t.string "first_name_kana", null: false
     t.string "last_name_kana", null: false
+    t.string "username"
     t.string "postal_code"
     t.string "address"
     t.string "phone_number"
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "username", default: "ななしのユーザー"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
