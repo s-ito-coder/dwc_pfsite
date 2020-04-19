@@ -1,36 +1,37 @@
-	<div class="row">
-		<div class="col-lg-12">
-			<h1>アイテム一覧ページ</h1><br />
-		</div>
-		<!-- 取得したitemsをeach文で表示していく -->
-        <%= search_form_for @search do |sch| %>
-            <%= sch.search_field :name_cont, placeholder:"キーワードで探す" %>
-            <%= sch.submit "検索" %>
-        <% end %>
-	    <% @items.all.each do | itm | %>
-			<div class="col-lg-4">
-				<div class="item-index-image">
-					<%= link_to item_path( itm ) do %>
-				        <%= attachment_image_tag itm, :image, size:'250x250', class: 'item-index-image' %>
-				    <% end %>
-				</div>
-	      		<%= link_to itm.name, item_path( itm ) %><br />
-			    <%= itm.listed_price %><br />
-				<%= link_to item_path( itm ) do %>
-				    <%= itm.genre_id %>
-				<% end %>
-			    <%= itm.selling_status ? '取引中' : '取引終了' %>
-			    <%= itm.item_comments.count %>コメント
-
-			    <% if itm.favorited_by?(current_user) %>
-		          <%= link_to item_favorites_path(itm, redirect_id: 0), method: :delete do %>
-	    	      	<span class="glyphicon glyphicon-heart"><%= itm.favorites.count%>Fav.</span>
-		          <% end %>
-		        <% else %>
-	            <%= link_to item_favorites_path(itm, redirect_id: 0), method: :post do %>
-	              <span class="glyphicon glyphicon-heart-empty"><%= itm.favorites.count %>Fav.</span>
-	            <% end %>
-	          <% end %>
-			</div>
-		<% end %>
+<div class="row">
+	<div class="col-lg-12">
+		<h1>アイテム一覧ページ</h1><br />
 	</div>
+	<!-- 取得したitemsをeach文で表示していく -->
+    <%= search_form_for @search do |sch| %>
+        <%= sch.search_field :name_cont, placeholder:"キーワードで探す" %>
+        <%= sch.submit "検索" %>
+    <% end %>
+    <% @items.all.each do | itm | %>
+		<div class="col-lg-4">
+			<div class="item-index-image">
+				<%= link_to item_path( itm ) do %>
+			        <%= attachment_image_tag itm, :image, size:'250x250', class: 'item-index-image' %>
+			    <% end %>
+			</div>
+
+      		<%= link_to itm.name, item_path( itm ) %><br />
+		    <%= itm.listed_price %><br />
+			<%= link_to item_path( itm ) do %>
+			    <%= itm.genre_id %>
+			<% end %>
+		    <%= itm.selling_status ? '取引中' : '取引終了' %>
+		    <%= itm.item_comments.count %>コメント
+
+		    <% if itm.favorited_by?(current_user) %>
+	        	<%= link_to item_favorites_path(itm, redirect_id: 0), method: :delete do %>
+	    	      	<span class="glyphicon glyphicon-heart"><%= itm.favorites.count%>Fav.</span>
+		        <% end %>
+		    <% else %>
+	            <%= link_to item_favorites_path(itm, redirect_id: 0), method: :post do %>
+	            	<span class="glyphicon glyphicon-heart-empty"><%= itm.favorites.count %>Fav.</span>
+	            <% end %>
+	        <% end %>
+		</div>
+	<% end %>
+</div>

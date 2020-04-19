@@ -1,12 +1,11 @@
 class ItemsController < ApplicationController
-  include ApplicationHelper
+	include ApplicationHelper
 
 	def index
 		@items = Item.all
 		# 検索機能
 		@search = Item.search(params[:q])
 		@items = @search.result(distinct: true)
-
 		respond_to do |format|
 			format.html
 			format.json { render json: @items }

@@ -1,99 +1,101 @@
 <div class="itemshow row">
-  <div class="itemshow__data--image col-xs-12">
-    <%= attachment_image_tag @item, :image, format: 'jpeg', fallback: 'no_image.jpg' %>
-    <%= attachment_image_tag @item, :image2, format: 'jpeg', fallback: 'no_image.jpg' %>
-    <%= attachment_image_tag @item, :image3, format: 'jpeg', fallback: 'no_image.jpg' %>
-  </div>
+    <div class="itemshow__data--image col-xs-12">
+        <%= attachment_image_tag @item, :image, format: 'jpeg', fallback: 'no_image.jpg' %>
+        <%= attachment_image_tag @item, :image2, format: 'jpeg', fallback: 'no_image.jpg' %>
+        <%= attachment_image_tag @item, :image3, format: 'jpeg', fallback: 'no_image.jpg' %>
+    </div>
     <div class="itemshow__data col-xs-7">
-      <div class="itemshow__data--name col-xs-7">
-        <h2><strong><%= @item.name %></strong></h2><br />
-        <!-- アイテムの説明 -->
-        <div class="itemshow__data--introduction">
-          <p><%= @item.introduction %></p><br />
+        <div class="itemshow__data--name col-xs-7">
+            <h2><strong><%= @item.name %></strong></h2><br />
+            <!-- アイテムの説明 -->
+            <div class="itemshow__data--introduction">
+                <p><%= @item.introduction %></p><br />
+            </div>
         </div>
-      </div>
-     	<!-- 桁数が多い場合カンマ区切りにするヘルパーを使用 -->
-      <div class="itemshow__data--price">
-    		￥ <%= number_separation ( @item.listed_price )%>(税込)
-      </div>
-      <div class="itemshow__data--fav">
-    		<!-- お気に入り機能 -->
-        <% if @item.favorited_by?(current_user) %>
-          <%= link_to item_favorites_path(@item, redirect_id: 0), method: :delete do %>
-            <span class="glyphicon glyphicon-heart"><%= @item.favorites.count%></span>
-          <% end %>
-        <% else %>
-          <%= link_to item_favorites_path(@item, redirect_id: 0), method: :post do %>
-            <span class="glyphicon glyphicon-heart-empty"><%= @item.favorites.count %></span>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="itemshow__data--buy">
-    		<!-- ログインせずに購入ボタンを推すとログインを促すウィンドウが表示される -->
-        <% if user_signed_in? then %>
-          <% unless @item.user_id == current_user.id then %>
-            <% if @item.selling_status? then %>
-              <button id="modal-open-btn", class="btn btn-primary">商品を購入する</button>
-              <%= link_to "", item_buy_path( @item.id ), id: 'item-buy-btn', method: :put %>
-              <div id="overlay">
-                <div id="modalWindow">
-                  <div class="modal-message-box">
-                    <p>本当に購入しますか？</p>
-                  </div>
-                  <button id="modal-close-btn">キャンセル</button>
-                  <button id="item-bought-btn">商品を購入する</button>
-                </div>
-              </div>
+      	<!-- 桁数が多い場合カンマ区切りにするヘルパーを使用 -->
+        <div class="itemshow__data--price">
+          	￥ <%= number_separation ( @item.listed_price )%>(税込)
+        </div>
+        <div class="itemshow__data--fav">
+      		<!-- お気に入り機能 -->
+            <% if @item.favorited_by?(current_user) %>
+                <%= link_to item_favorites_path(@item, redirect_id: 0), method: :delete do %>
+                    <span class="glyphicon glyphicon-heart"><%= @item.favorites.count%></span>
+                <% end %>
+            <% else %>
+                <%= link_to item_favorites_path(@item, redirect_id: 0), method: :post do %>
+                    <span class="glyphicon glyphicon-heart-empty"><%= @item.favorites.count %></span>
+                <% end %>
             <% end %>
-          <% end %>
-        <% else %>
-         	<%= link_to 'ユーザー登録して購入する', new_user_registration_path, 'btn btn-primary'%>
-        <% end %>
-      </div>
+        </div>
 
-      <div class="itemshow__data--edit">
-        <!-- 自分が出品したアイテムの場合は編集用ボタンを表示 -->
-        <% if user_signed_in? then %>
-	        <% if @item.user == current_user %>
-	          <%= link_to '編集する', edit_item_path( @item ), class: "btn btn-primary" %>
-          <% end %>
-        <% end %>
-      </div>
+        <div class="itemshow__data--buy">
+     		<!-- ログインせずに購入ボタンを推すとログインを促すウィンドウが表示される -->
+            <% if user_signed_in? then %>
+                <% unless @item.user_id == current_user.id then %>
+                    <% if @item.selling_status? then %>
+                        <button id="modal-open-btn", class="btn btn-primary">商品を購入する</button>
+                        <%= link_to "", item_buy_path( @item.id ), id: 'item-buy-btn', method: :put %>
+                        <!-- モーダルウィンドウ用タグ -->
+                        <div id="overlay">
+                            <div id="modalWindow">
+                                <div class="modal-message-box">
+                                    <p>本当に購入しますか？</p>
+                                </div>
+                                <button id="modal-close-btn">キャンセル</button>
+                                <button id="item-bought-btn">商品を購入する</button>
+                            </div>
+                        </div>
+                    <% end %>
+                <% end %>
+            <% else %>
+          	    <%= link_to 'ユーザー登録して購入する', new_user_registration_path, 'btn btn-primary'%>
+            <% end %>
+        </div>
+
+        <div class="itemshow__data--edit">
+            <!-- 自分が出品したアイテムの場合は編集用ボタンを表示 -->
+            <% if user_signed_in? then %>
+  	            <% if @item.user == current_user %>
+   	                <%= link_to '編集する', edit_item_path( @item ), class: "btn btn-primary" %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="itemshow__comment row">
+    	<h2>コメント：<%= @item_comments.count %></h2>
+        <table class="itemshow__comment--list">
+        <!-- コメント一覧表示 -->
+            <% @item_comments.each do |itm_co| %>
+    	        <tr>
+    	            <td><div class="field">
+    	               <%= link_to item_path(itm_co.user), class: "user_#{itm_co.user.id}" do %>
+    	                   <%= itm_co.user.username %>｜
+    	               <% end %>
+               	    </div></td>
+    	            <td><div class="field">
+    	          	    <%= itm_co.comment %>
+    	            </div></td>
+    	            <!-- 投稿者とログインユーザーが同じ場合削除ボタン表示 -->
+    	            <% unless current_user != itm_co.user %>
+    	                <td><div class="field">
+    	            	    ｜<%= link_to 'Destroy', item_item_comments_path(itm_co.id), class: 'btn-sm btn-danger', method: :delete %>
+    	                </div></td>
+    	            <% end %>
+    	        </tr>
+            <% end %>
+        </table>
+
+        <div class="itemshow__comment--submit">
+            <%= form_for [@item, @item_comment] do |f| %>
+                <%= f.text_area :comment, size: "90x5", placeholder: "コメント？" %>
+                <%= f.submit '送信' ,class: "btn btn-primary" %>
+            <% end %>
+        </div>
     </div>
 </div>
 
-<div class="itemshow__comment row">
-	<h2>コメント：<%= @item_comments.count %></h2>
-    <table class="itemshow__comment--list">
-    <!-- コメント一覧表示 -->
-      <% @item_comments.each do |itm_co| %>
-	        <tr>
-	          <td><div class="field">
-	            <%= link_to item_path(itm_co.user), class: "user_#{itm_co.user.id}" do %>
-	              <%= itm_co.user.username %>｜
-	            <% end %>
-           	    </div></td>
-	          <td><div class="field">
-	          	<%= itm_co.comment %>
-	          </div></td>
-	          <!-- 投稿者とログインユーザーが同じ場合削除ボタン表示 -->
-	          <% unless current_user != itm_co.user %>
-	            <td><div class="field">
-	            	｜<%= link_to 'Destroy', item_item_comments_path(itm_co.id), class: 'btn-sm btn-danger', method: :delete %>
-	            </div></td></div>
-	          <% end %>
-	        </tr>
-      <% end %>
-    </table>
-
-    <div class="itemshow__comment--submit">
-      <%= form_for [@item, @item_comment] do |f| %>
-        <%= f.text_area :comment, size: "90x5", placeholder: "コメント？" %>
-        <%= f.submit '送信' ,class: "btn btn-primary" %>
-      <% end %>
-    </div>
-</div>
 <div class="itemshow__back row">
 	<%= link_to items_path do %>
 		商品一覧に戻る

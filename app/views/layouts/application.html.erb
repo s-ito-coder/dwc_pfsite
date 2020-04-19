@@ -1,100 +1,98 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>おもいで通販</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <head>
+        <title>おもいで通販</title>
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <header class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <nav class="nav navbar-nav navbar-left">
-          <%= link_to root_path do %>
-          <%= image_tag 'omoide_logo.png', size:'200x45' %>
-          <% end %>
-        </nav>
-        <nav>
-          <ul>
-            <!-- ログイン中の場合 -->
-            <% if user_signed_in? %>
-              <div class="nav navbar-nav navbar-right normal-menu">
-                <li>
-                  ログインユーザ：<%= current_user.username%> さん<br>
-                  <% if flash.any? then %>
-                    <% flash.each do |key, value| %>
-                      <%= value %>
-                    <% end %>
+        <header class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <nav class="nav navbar-nav navbar-left">
+                  <%= link_to root_path do %>
+                  <%= image_tag 'omoide_logo.png', size:'200x45' %>
                   <% end %>
-                </li>
-                <li><%= link_to "出品する", items_exhibition_path %></li>
-                <li><%= link_to "商品を探す", items_path %></li>
-                <li><%= link_to "マイページ", user_path(current_user.id) %></li>
-                <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-              </div>
-              <div id="sp-menu">
+                </nav>
                 <ul>
-                  <li><%= link_to "出品する", items_exhibition_path %></li>
-                  <li><%= link_to "商品を探す", items_path %></li>
-                  <li><%= link_to "マイページ", user_path(current_user.id) %></li>
-                  <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-                </ul>
-              </div>
-              <div id="hm-icon">
-                <a class="menu-trigger" href="#">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </a>
-              </div>
-            <!-- ログアウトしている場合 -->
-            <% else %>
-              <div class="nav navbar-nav navbar-right normal-menu">
-                <li>
-                  <br>
-                  <% if flash.any? then %>
-                    <% flash.each do |key, value| %>
-                      <%= value %>
+                    <!-- ログイン中の場合 -->
+                    <% if user_signed_in? %>
+                        <div class="nav navbar-nav navbar-right normal-menu">
+                            <li>
+                                ログインユーザ：<%= current_user.username%> さん<br>
+                                <% if flash.any? then %>
+                                    <% flash.each do |key, value| %>
+                                        <%= value %>
+                                    <% end %>
+                                <% end %>
+                            </li>
+                            <li><%= link_to "出品する", items_exhibition_path %></li>
+                            <li><%= link_to "商品を探す", items_path %></li>
+                            <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+                            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+                        </div>
+                          <!-- レスポンシブ対応　ハンバーガーアイコン -->
+                        <div id="sp-menu">
+                            <ul>
+                                <li><%= link_to "出品する", items_exhibition_path %></li>
+                                <li><%= link_to "商品を探す", items_path %></li>
+                                <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+                                <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+                            </ul>
+                        </div>
+                        <div id="hm-icon">
+                            <a class="menu-trigger" href="#">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </a>
+                        </div>
+                        <!-- ログアウトしている場合 -->
+                        <% else %>
+                            <div class="nav navbar-nav navbar-right normal-menu">
+                                <li>
+                                    <br>
+                                    <% if flash.any? then %>
+                                        <% flash.each do |key, value| %>
+                                            <%= value %>
+                                        <% end %>
+                                    <% end %>
+                                </li>
+                                <li><%= link_to "このサイトについて", homes_about_path %></li>
+                                <li><%= link_to "新規登録", new_user_registration_path %></li>
+                                <li><%= link_to "ログイン", new_user_session_path %></li>
+                            </div>
+                            <!-- レスポンシブ対応　ハンバーガーアイコン -->
+                            <div id="sp-menu">
+                                <ul>
+                                  <li><%= link_to "このサイトについて", homes_about_path %></li>
+                                  <li><%= link_to "新規登録", new_user_registration_path %></li>
+                                  <li><%= link_to "ログイン", new_user_session_path %></li>
+                                </ul>
+                            </div>
+                            <div id="hm-icon">
+                                <a class="menu-trigger" href="#">
+                                    <span></span>
+                                    <span></span>
+                                <span></span>
+                                </a>
+                            </div>
                     <% end %>
-                  <% end %>
-                </li>
-                <li><%= link_to "このサイトについて", homes_about_path %></li>
-                <li><%= link_to "新規登録", new_user_registration_path %></li>
-                <li><%= link_to "ログイン", new_user_session_path %></li>
-              </div>
-              <!-- レスポンシブ対応　ハンバーガーアイコン -->
-              <div id="sp-menu">
-                <ul>
-                  <li><%= link_to "このサイトについて", homes_about_path %></li>
-                  <li><%= link_to "新規登録", new_user_registration_path %></li>
-                  <li><%= link_to "ログイン", new_user_session_path %></li>
                 </ul>
-              </div>
-              <div id="hm-icon">
-                <a class="menu-trigger" href="#">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </a>
-              </div>
-            <% end %>
-          </ul>
-        </nav>
-      </div>
-    </header>
-  </head>
+            </div>
+        </header>
+    </head>
 
-  <body>
-    <div class="container">
-      <%= yield %>
-    </div>
-  </body>
+    <body>
+        <div class="container">
+            <%= yield %>
+        </div>
+    </body>
 
-  <footer>
-    © 2020 Seiya Ito inc.<br />
-    ポートフォリオ用サイトです。実際の取引はできません。
-  </footer>
-
+    <footer>
+        © 2020 Seiya Ito inc.<br />
+        ポートフォリオ用サイトです。実際の取引はできません。
+    </footer>
 </html>
