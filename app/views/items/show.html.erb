@@ -18,13 +18,15 @@
         </div>
         <div class="itemshow__data--fav">
       		<!-- お気に入り機能 -->
-            <% if @item.favorited_by?(current_user) %>
-                <%= link_to item_favorites_path(@item, redirect_id: 0), method: :delete do %>
-                    <span class="glyphicon glyphicon-heart"><%= @item.favorites.count%></span>
-                <% end %>
-            <% else %>
-                <%= link_to item_favorites_path(@item, redirect_id: 0), method: :post do %>
-                    <span class="glyphicon glyphicon-heart-empty"><%= @item.favorites.count %></span>
+            <% if user_signed_in? then %>
+                <% if @item.favorited_by?(current_user) %>
+                    <%= link_to item_favorites_path(@item, redirect_id: 0), method: :delete do %>
+                        <span class="glyphicon glyphicon-heart"><%= @item.favorites.count%></span>
+                    <% end %>
+                <% else %>
+                    <%= link_to item_favorites_path(@item, redirect_id: 0), method: :post do %>
+                        <span class="glyphicon glyphicon-heart-empty"><%= @item.favorites.count %></span>
+                    <% end %>
                 <% end %>
             <% end %>
         </div>
@@ -49,7 +51,7 @@
                     <% end %>
                 <% end %>
             <% else %>
-          	    <%= link_to 'ユーザー登録して購入する', new_user_registration_path, 'btn btn-primary'%>
+          	    <%= link_to 'ユーザー登録して購入する', new_user_registration_path, class: "btn btn-primary" %>
             <% end %>
         </div>
 
