@@ -31,6 +31,8 @@ class ItemsController < ApplicationController
 	def create
 	    @item = Item.new(item_params)
 	    @item.user_id = current_user.id
+	    # アイテムに出品者名を登録する
+	    @item.ex_username = join_ex_username( current_user.last_name, current_user.first_name )
 	    if @item.save
 		  flash[:notice] = "商品の出品が完了しました。"
 	      redirect_to @item
@@ -48,6 +50,7 @@ class ItemsController < ApplicationController
 	def buy
 		@item = Item.find(params[:id])
 		user = User.find(current_user.id)
+		exuser = @item.user
 		# orderテーブルに格納する準備
 		orders = Order.new
 		flash[:notice] = "商品の購入処理が完了しました。"
@@ -63,8 +66,12 @@ class ItemsController < ApplicationController
 		orders.total_price = @item.listed_price + 800
 		# 情報を保存
 		orders.save
-		@item.save
-    	redirect_to items_url
+		# 出品者に購入完了メールを送信する
+		if orders.save
+			@item.save
+		    NotificationMailer.send_when_signup(@user).deliver
+	    	redirect_to items_url
+	    end
     end
 
 	def destroy

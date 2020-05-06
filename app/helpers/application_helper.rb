@@ -13,7 +13,7 @@ module ApplicationHelper
     end
 
     # 受取人名義を１行にまとめる
-    def join_consignee( last_name, first_name )
+    def join_ex_username( last_name, first_name )
         # 返す変数の作成
         str = String.new
         # 先頭に郵便番号を配置
