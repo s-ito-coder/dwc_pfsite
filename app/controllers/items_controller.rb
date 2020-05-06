@@ -31,6 +31,9 @@ class ItemsController < ApplicationController
 	def create
 	    @item = Item.new(item_params)
 	    @item.user_id = current_user.id
+	    @item.address = current_user.address
+	    @item.email = current_user.email
+	    @item.postal_code = current_user.postal_code
 	    # アイテムに出品者名を登録する
 	    @item.ex_username = join_ex_username( current_user.last_name, current_user.first_name )
 	    if @item.save

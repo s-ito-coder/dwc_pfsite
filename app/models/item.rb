@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
 	belongs_to :user
-    validates :introduction, length: { maximum: 5000 }
+    validates :introduction, presence: true, length: { maximum: 5000 }
+    validates :name, presence: true, length: { maximum: 20 }
     has_many :favorites, dependent: :destroy
     has_many :favorite_users, through: :favorites, source: :user, dependent: :destroy
     attachment :image
