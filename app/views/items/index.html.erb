@@ -25,11 +25,11 @@
 
 		    <% if itm.favorited_by?(current_user) %>
 	        	<%= link_to item_favorites_path(itm, redirect_id: 0), method: :delete do %>
-	    	      	<span class="glyphicon glyphicon-heart"><%= itm.favorites.count%>Fav.</span>
+	    	      	<span class="glyphicon glyphicon-heart"><%= itm.favorites.count%></span>
 		        <% end %>
 		    <% else %>
 	            <%= link_to item_favorites_path(itm, redirect_id: 0), method: :post do %>
-	            	<span class="glyphicon glyphicon-heart-empty"><%= itm.favorites.count %>Fav.</span>
+	            	<span class="glyphicon glyphicon-heart-empty"><%= itm.favorites.count %></span>
 	            <% end %>
 	        <% end %>
 		</div>

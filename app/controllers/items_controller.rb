@@ -37,12 +37,12 @@ class ItemsController < ApplicationController
 	    # アイテムに出品者名を登録する
 	    @item.ex_username = join_ex_username( current_user.last_name, current_user.first_name )
 	    if @item.save
-		  flash[:notice] = "商品の出品が完了しました。"
-	      redirect_to @item
+			flash[:notice] = "商品の出品が完了しました。"
+	    	redirect_to @item
 	    else
-		  flash[:notice] = "商品の出品に失敗しました。"
-	      @items = Item.all
-	      render 'index'
+			flash[:notice] = "商品の出品に失敗しました。"
+	    	@items = Item.all
+			redirect_to items_path
 	    end
 	end
 
@@ -52,27 +52,26 @@ class ItemsController < ApplicationController
 
 	def buy
 		@item = Item.find(params[:id])
-		user = User.find(current_user.id)
+		@user = User.find(current_user.id)
 		exuser = @item.user
 		# orderテーブルに格納する準備
 		orders = Order.new
 		flash[:notice] = "商品の購入処理が完了しました。"
-		@item.selling_status = false
 		# orderテーブルに購入情報を格納
 		orders.item_id = @item.id
 		orders.item_name = @item.name
 		orders.image_id = @item.image_id
 		orders.user_id = current_user.id
-		orders.postal_code = user.postal_code
-		orders.ship_to = user.address
-		orders.consignee = join_consignee( user.last_name, user.first_name )
+		orders.postal_code = @user.postal_code
+		orders.ship_to = @user.address
+		orders.consignee = join_ex_username( @user.last_name, @user.first_name )
 		orders.total_price = @item.listed_price + 800
 		# 情報を保存
 		orders.save
-		# 出品者に購入完了メールを送信する
 		if orders.save
+		    # ContactMailer.send_when_item_bought( @user, @item ).deliver
 			@item.save
-		    NotificationMailer.send_when_signup(@user).deliver
+			@item.selling_status = false
 	    	redirect_to items_url
 	    end
     end
