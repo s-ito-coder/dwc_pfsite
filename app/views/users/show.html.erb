@@ -33,16 +33,21 @@
                 <% @items.each do |itm| %>
                     <div class="user__exhibition--list col-md-4">
                         <div class="user__exhibition--name">
-                            <div class="col-mg-4 user__exhibition--item">
+                            <div class="user__exhibition--item">
                                 <%= link_to item_path(itm) do %>
                                   <%= itm.name %><br />
                                 <% end %>
                                 ￥<%= itm.listed_price %><br />
                                 <%= itm.genre_id %><br />
-                                <% if itm.selling_status? %>
+                                <% if itm.selling_status == 0 %>
                                     販売中
+                                <% elsif itm.selling_status == 1 %>
+                                    <p>購入済み　以下住所に商品を発送してください</p>
+                                    <p>購入者：<%= itm.ex_username %></p>
+                                    <p>〒<%= itm.postal_code %></p>
+                                    <p>住所：<%= itm.address %></p>
                                 <% else %>
-                                    購入済み　商品を発送してください
+                                    発送完了通知済
                                 <% end %>
                             </div>
                         </div>

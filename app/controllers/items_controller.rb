@@ -70,8 +70,12 @@ class ItemsController < ApplicationController
 		orders.save
 		if orders.save
 		    # ContactMailer.send_when_item_bought( @user, @item ).deliver
+			@item.selling_status = 1
+			@item.ex_username = current_user.username
+			@item.address = current_user.address
+			@item.email = current_user.email
+			@item.postal_code = current_user.postal_code
 			@item.save
-			@item.selling_status = false
 	    	redirect_to items_url
 	    end
     end
