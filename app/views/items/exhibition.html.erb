@@ -16,7 +16,7 @@
 			</div>
 			<div class="field">
 			   	<%= itm.label :listed_price, 'この商品の値段は？' %><br />
-				<%= itm.number_field :listed_price, min:0 %><br />
+				<%= itm.number_field :listed_price, min:0, placeholder: "〇〇円で入力" %><br />
 			</div>
 			<div class="field">
 			   	<%= itm.submit "商品を出品する", class: "btn btn-primary" %><br />

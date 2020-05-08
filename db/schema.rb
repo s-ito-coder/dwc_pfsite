@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_132527) do
+ActiveRecord::Schema.define(version: 2020_05_06_121643) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
@@ -50,6 +50,10 @@ ActiveRecord::Schema.define(version: 2020_04_07_132527) do
     t.integer "user_id"
     t.string "image2_id"
     t.string "image3_id"
+    t.string "ex_username"
+    t.string "address"
+    t.string "email"
+    t.string "postal_code"
   end
 
   create_table "orders", force: :cascade do |t|
