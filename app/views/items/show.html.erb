@@ -41,7 +41,7 @@
      		<!-- ログインせずに購入ボタンを推すとログインを促すウィンドウが表示される -->
             <% if user_signed_in? then %>
                 <% unless @item.user_id == current_user.id then %>
-                    <% if @item.selling_status? then %>
+                    <% if @item.selling_status = 0 then %>
                         <button id="modal-open-btn", class="btn btn-primary">商品を購入する</button>
                         <%= link_to "", item_buy_path( @item.id ), id: 'item-buy-btn', method: :put %>
                         <!-- モーダルウィンドウ用タグ -->

@@ -20,7 +20,11 @@
 			<%= link_to item_path( itm ) do %>
 			    <%= itm.genre_id %>
 			<% end %>
-		    <%= itm.selling_status ? '取引中' : '取引終了' %>
+		    <% if itm.selling_status == 0 %>
+		    	取引中
+	    	<% else %>
+			    取引終了
+			<% end %>
 		    <%= itm.item_comments.count %>コメント
 
 		    <% if itm.favorited_by?(current_user) %>

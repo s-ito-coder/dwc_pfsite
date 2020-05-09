@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   # 出品ページ用
   get '/items/exhibition' => 'items#exhibition'
 
+  put '/items/finish/:id' => 'items#finish', as: 'item_finish'
+
   # 商品用ルーティング（コメント、お気に入り）
   put '/items/buy/:id' => 'items#buy', as: 'item_buy'
 
