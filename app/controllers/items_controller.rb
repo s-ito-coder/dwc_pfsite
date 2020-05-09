@@ -80,6 +80,15 @@ class ItemsController < ApplicationController
 	    end
     end
 
+    def finish
+    	item = Item.find(params[:id])
+    	item.selling_status = 2
+    	if item.save
+		  	flash[:notice] = "商品の出荷を通知しました。"
+		    redirect_to items_url
+		end
+	end
+
 	def destroy
 	    @item = Item.find(params[:id])
 	    @item.destroy

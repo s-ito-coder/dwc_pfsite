@@ -46,7 +46,8 @@
                                     <p>購入者：<%= itm.ex_username %></p>
                                     <p>〒<%= itm.postal_code %></p>
                                     <p>住所：<%= itm.address %></p>
-                                <% else %>
+                                    <%= link_to "発送完了を通知する", item_finish_path( itm.id ), class: 'item-finish-btn btn btn-primary', method: :put %>
+                                <% elsif itm.selling_status == 2 %>
                                     発送完了通知済
                                 <% end %>
                             </div>
