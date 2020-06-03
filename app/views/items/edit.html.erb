@@ -25,10 +25,10 @@
 	    <%= attachment_image_tag @item, :image, fallback: 'no_image.jpg', size:'350x350' %>
 	    <%= itm.attachment_field :image, placeholder: "商品画像を変更" %>
 	</div>
-</div>
 
-<div class="field">
-   	<%= itm.submit "これで登録する", class: "btn btn-primary" %><br />
-   	<%= link_to '商品を取り下げ', item_path(@item.id), class: 'btn btn-danger', method: :delete %>
-</div>
+	<div class="field">
+	   	<%= itm.submit "これで登録する", class: "btn btn-primary" %><br />
+	   	<%= link_to '商品を取り下げ', item_path(@item.id), class: 'btn btn-danger', method: :delete %>
+	</div>
 	<% end %>
+</div>

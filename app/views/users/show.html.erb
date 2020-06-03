@@ -37,7 +37,12 @@
                                 <%= link_to item_path(itm) do %>
                                   <%= itm.name %><br />
                                 <% end %>
-                                ￥<%= itm.listed_price %><br />
+                                <p>出品設定額：<%= itm.listed_price %>円</p>
+                                <!-- ブーストされている場合金額を表示 -->
+                                <% if itm.listed_price_boost.nil?%>
+                                <% else %>
+                                    ※購入者によって<%= itm.listed_price %>円ブーストされました<br />
+                                <% end %>
                                 <%= itm.genre_id %><br />
                                 <% if itm.selling_status == 0 %>
                                     販売中

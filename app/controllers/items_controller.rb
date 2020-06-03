@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
 
 	def index
 		@items = Item.all
-		# 検索機能
+		# ransackを用いた検索機能
 		@search = Item.search(params[:q])
 		@items = @search.result(distinct: true)
 		respond_to do |format|
@@ -50,6 +50,13 @@ class ItemsController < ApplicationController
 		@item = Item.find(params[:id])
 	end
 
+	def boost
+		@item = Item.find(params[:id])
+	    @item.update( item_params )
+	    flash[:notice] = "ブースト額を登録しました。"
+		redirect_to action: 'show'
+	end
+
 	def buy
 		@item = Item.find(params[:id])
 		@user = User.find(current_user.id)
@@ -65,7 +72,8 @@ class ItemsController < ApplicationController
 		orders.postal_code = @user.postal_code
 		orders.ship_to = @user.address
 		orders.consignee = join_ex_username( @user.last_name, @user.first_name )
-		orders.total_price = @item.listed_price + 800
+		# 処理時にブーストした金額と送料（一律800円）を上乗せする
+		orders.total_price = @item.listed_price + @item.listed_price_boost + 800
 		# 情報を保存
 		orders.save
 		if orders.save
@@ -98,7 +106,7 @@ class ItemsController < ApplicationController
 
     private
     def item_params
-        params.require(:item).permit(:genre_id, :name, :introduction, :listed_price, :image, :image2, :image3)
+        params.require(:item).permit(:genre_id, :name, :introduction, :listed_price, :listed_price_boost, :image, :image2, :image3)
     end
 
     def correct_user
