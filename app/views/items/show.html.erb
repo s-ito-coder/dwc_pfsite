@@ -21,10 +21,15 @@
       	<!-- 桁数が多い場合カンマ区切りにするヘルパーを使用 -->
         <div class="itemshow__data--price">
           	出品者希望額 <%= number_separation ( @item.listed_price )%>円
-            <%= form_for( @item, url:item_boost_path( @item ), html: {method: 'put'} ) do | itm | %>
-                <!-- 購入価格ブースト機能 -->
-                <%= itm.number_field :listed_price_boost, placeholder: "＋金額をブーストする" ,step:100 ,min:0 %>
-                <%= itm.submit "ブースト金額を登録", class: "btn btn-primary" %><br />
+            <% if user_signed_in? then %>
+                <% unless @item.user_id == current_user.id then %>
+                    <%= form_for( @item, url:item_boost_path( @item ), html: {method: 'put'} ) do | itm | %>
+                        <!-- 購入価格ブースト機能 -->
+                        <%= itm.number_field :listed_price_boost, placeholder: "＋金額をブーストする" ,step:100 ,min:0 %>
+                        <%= itm.submit "ブースト金額を登録", class: "btn btn-primary" %><br />
+                    <% end %>
+                <% end %>
+            <% else %>
             <% end %>
         </div>
         <div class="itemshow__data--fav">
