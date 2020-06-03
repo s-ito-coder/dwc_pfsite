@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_121643) do
+ActiveRecord::Schema.define(version: 2020_06_02_092147) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_121643) do
     t.string "address"
     t.string "email"
     t.string "postal_code"
+    t.integer "listed_price_boost"
   end
 
   create_table "orders", force: :cascade do |t|

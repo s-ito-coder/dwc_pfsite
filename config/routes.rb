@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   # 商品用ルーティング（コメント、お気に入り）
   put '/items/buy/:id' => 'items#buy', as: 'item_buy'
 
+  put '/items/boost/:id' => 'items#boost', as: 'item_boost'
+
   resources :items, only: [:index, :show, :create, :edit, :destroy] do
     resource :item_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
