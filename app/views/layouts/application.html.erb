@@ -9,16 +9,16 @@
         <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-        <header class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <nav class="nav navbar-nav navbar-left">
-                  <%= link_to root_path do %>
-                  <%= image_tag 'omoide_logo.png', size:'200x45' %>
-                  <% end %>
-                </nav>
-                <ul>
-                    <!-- ログイン中の場合 -->
-                    <% if user_signed_in? %>
+        <!-- ログイン中の場合のみトップバーを表示 -->
+        <% if user_signed_in? %>
+            <header class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    <nav class="nav navbar-nav navbar-left">
+                      <%= link_to root_path do %>
+                      <%= image_tag 'omoide_logo.png', size:'200x45' %>
+                      <% end %>
+                    </nav>
+                    <ul>
                         <div class="nav navbar-nav navbar-right normal-menu">
                             <li>
                                 ログインユーザ：<%= current_user.username%> さん<br>
@@ -26,14 +26,14 @@
                                     <% flash.each do |key, value| %>
                                         <%= value %>
                                     <% end %>
-                                <% end %>
+                                    <% end %>
                             </li>
                             <li><%= link_to "出品する", items_exhibition_path %></li>
                             <li><%= link_to "商品を探す", items_path %></li>
                             <li><%= link_to "マイページ", user_path(current_user.id) %></li>
                             <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
                         </div>
-                          <!-- レスポンシブ対応　ハンバーガーアイコン -->
+                        <!-- レスポンシブ対応　ハンバーガーアイコン -->
                         <div id="sp-menu">
                             <ul>
                                 <li><%= link_to "出品する", items_exhibition_path %></li>
@@ -49,40 +49,11 @@
                                 <span></span>
                             </a>
                         </div>
-                        <!-- ログアウトしている場合 -->
-                        <% else %>
-                            <div class="nav navbar-nav navbar-right normal-menu">
-                                <li>
-                                    <br>
-                                    <% if flash.any? then %>
-                                        <% flash.each do |key, value| %>
-                                            <%= value %>
-                                        <% end %>
-                                    <% end %>
-                                </li>
-                                <li><%= link_to "このサイトについて", homes_about_path %></li>
-                                <li><%= link_to "新規登録", new_user_registration_path %></li>
-                                <li><%= link_to "ログイン", new_user_session_path %></li>
-                            </div>
-                            <!-- レスポンシブ対応　ハンバーガーアイコン -->
-                            <div id="sp-menu">
-                                <ul>
-                                  <li><%= link_to "このサイトについて", homes_about_path %></li>
-                                  <li><%= link_to "新規登録", new_user_registration_path %></li>
-                                  <li><%= link_to "ログイン", new_user_session_path %></li>
-                                </ul>
-                            </div>
-                            <div id="hm-icon">
-                                <a class="menu-trigger" href="#">
-                                    <span></span>
-                                    <span></span>
-                                <span></span>
-                                </a>
-                            </div>
-                    <% end %>
-                </ul>
-            </div>
-        </header>
+                    </ul>
+                </div>
+            </header>
+        <% else %>
+        <% end %>
     </head>
 
     <body>
